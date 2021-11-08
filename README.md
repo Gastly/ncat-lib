@@ -1,3 +1,25 @@
+## About this NCAT Fork
+
+The executable has been modified to accept multiple input coordinates at once.
+java -Dparms is no longer used. Instead, enter each input to -Dparms as standard input. Output is an array of JSON objects.
+
+
+Example:
+~~~
+java -Dgpath=/grids -Dparms=llH,40.0,-80.0,100.0,NAD83(2011),NAD83(NSRS2007),3702,auto,NGVD29,NAVD88 -jar jtransform_thin.jar 
+~~~
+
+becomes:
+
+~~~
+java -Dgpath=/grids -jar jtransform_thin.jar
+llH,40.0,-80.0,100.0,NAD83(2011),NAD83(NSRS2007),3702,auto,NGVD29,NAVD88
+...
+^D
+~~~
+
+The original README continues below.
+
 # ncat-lib
 
 This repository contains the transformation algorithms/modules used by the NCAT web tool.

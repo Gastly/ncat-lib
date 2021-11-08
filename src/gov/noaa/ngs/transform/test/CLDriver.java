@@ -7,6 +7,10 @@ import gov.noaa.ngs.transform.CoordinateTransformation;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.Scanner;
+import java.util.ArrayList;
+
+
 /**
  *
  * @author Krishna.Tadepalli
@@ -610,19 +614,42 @@ public class CLDriver {
             }
         }
 
-        System.out.println(getJson(inDatum, outDatum, llh, radius, fparm, spcZone, utmZone,
+        System.out.print(getJson(inDatum, outDatum, llh, radius, fparm, spcZone, utmZone,
                 inVertDatum, outVertDatum, orthoHt));
 
     }
 
+    // public static void main(String[] args) {
+    //     String[] inData = System.getProperty("parms", "").split(",");
+    //   //         String[] inData = "llH,40.0,-80.0,20.0,NAD83(2011),NAD83(NSRS2007),3702,auto,NGVD29,NAVD88".split(",");
+    //     if (!(inData.length > 1)) {
+    //         System.err.println("No input parameters provided, terminating the program");
+    //         return;
+    //     }
+    //     convert(inData);
+
+    // }
+
+
     public static void main(String[] args) {
-        String[] inData = System.getProperty("parms", "").split(",");
- //              String[] inData = "spch,1702,682098.274,3369338.675,usft,NAD83(2011),NAD83(2011),auto,6.367284734569469".split(",");
-        if (!(inData.length > 1)) {
-            System.err.println("No input parameters provided, terminating the program");
-            return;
+        ArrayList<String[]> inDataList = new ArrayList<String[]>();
+        Scanner input = new Scanner(System.in);
+
+        while (input.hasNext()) {
+            String[] inData = input.nextLine().split(",");
+            inDataList.add(inData);
         }
-        convert(inData);
+
+        System.out.print("[");
+        for (int i = 0; i < inDataList.size(); i++) {
+            String[] inData = inDataList.get(i);
+            convert(inData);
+
+            // no comma on last entry
+            if (i < inDataList.size() - 1)
+                System.out.println(",");
+        }
+        System.out.println("]");
 
     }
 
